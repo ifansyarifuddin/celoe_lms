@@ -41,61 +41,118 @@ class CommunityPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       itemCount: 5,
       itemBuilder: (context, index) {
-        return Card(
+        return Container(
           margin: const EdgeInsets.only(bottom: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          elevation: 2,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.grey[200],
-                      child: Icon(Icons.person, color: Colors.grey[400]),
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+                      child: Icon(Icons.person, color: AppColors.primary),
                     ),
                     const SizedBox(width: 12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          index % 2 == 0 ? 'BEM Universitas' : 'UKM Olahraga',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          '2 Jam yang lalu',
-                          style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            index % 2 == 0 ? 'BEM Universitas' : 'UKM Olahraga',
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                '2 Jam yang lalu',
+                                style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+                              ),
+                              const SizedBox(width: 4),
+                              Icon(Icons.public, size: 12, color: Colors.grey[400]),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.more_horiz),
+                      onPressed: () {},
+                      color: Colors.grey,
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  index % 2 == 0
-                      ? 'Pendaftaran Beasiswa Unggulan Tahap 2 telah dibuka! Segera daftarkan diri Anda sebelum tanggal 30 Desember.'
-                      : 'Jangan lupa saksikan pertandingan Final Futsal antar fakultas besok pagi di GOR Utama.',
-                  style: const TextStyle(fontSize: 14),
-                ),
-                const SizedBox(height: 12),
-                Row(
+              ),
+              const Divider(height: 1),
+              
+              // Content
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.favorite_border, size: 20, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    const Text('12', style: TextStyle(color: Colors.grey)),
-                    const SizedBox(width: 16),
-                    const Icon(Icons.comment_outlined, size: 20, color: Colors.grey),
-                    const SizedBox(width: 4),
-                    const Text('4', style: TextStyle(color: Colors.grey)),
+                    Text(
+                      index % 2 == 0
+                          ? 'Pendaftaran Beasiswa Unggulan Tahap 2 telah dibuka! Segera daftarkan diri Anda sebelum tanggal 30 Desember. #Beasiswa #UIM'
+                          : 'Jangan lupa saksikan pertandingan Final Futsal antar fakultas besok pagi di GOR Utama. Ayo dukung tim fakultasmu! ⚽🔥',
+                      style: const TextStyle(fontSize: 14, height: 1.5),
+                    ),
+                    const SizedBox(height: 12),
+                    if (index % 2 != 0) // Mock Image Attachment
+                      Container(
+                        height: 180,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(8),
+                          image: const DecorationImage(
+                             image: AssetImage('assets/images/logo.png'), // Placeholder
+                             fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                   ],
                 ),
-              ],
-            ),
+              ),
+
+              // Actions
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildActionButton(Icons.thumb_up_alt_outlined, 'Suka (12)'),
+                    _buildActionButton(Icons.comment_outlined, 'Komentar (4)'),
+                    _buildActionButton(Icons.share_outlined, 'Bagikan'),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       },
+    );
+  }
+
+  Widget _buildActionButton(IconData icon, String label) {
+    return TextButton.icon(
+      onPressed: () {},
+      icon: Icon(icon, size: 20, color: Colors.grey[600]),
+      label: Text(label, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
     );
   }
 
