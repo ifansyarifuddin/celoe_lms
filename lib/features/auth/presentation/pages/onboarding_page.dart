@@ -16,19 +16,19 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   final List<Map<String, String>> _slides = [
     {
-      'title': 'Akses Materi Mudah',
-      'description': 'Akses materi perkuliahan kapan saja dan di mana saja dengan mudah.',
+      'title': 'Akses Materi Lengkap',
+      'description': 'Pelajari materi kuliah di mana saja dengan akses mudah ke modul video dan dokumen.',
       'icon': 'book', 
     },
     {
-      'title': 'Komunitas Mahasiswa',
-      'description': 'Berinteraksi dengan sesama mahasiswa dan dosen dalam komunitas UIM.',
+      'title': 'Forum Diskusi',
+      'description': 'Diskusikan materi dengan dosen dan teman sekelas melalui forum interaktif.',
       'icon': 'group',
     },
     {
-      'title': 'Real-time Notification',
-      'description': 'Dapatkan notifikasi tugas, ujian, dan pengumuman penting secara instan.',
-      'icon': 'notifications',
+      'title': 'Manajemen Tugas',
+      'description': 'Pantau tenggat waktu dan kumpulkan tugas perkuliahan tepat waktu.',
+      'icon': 'assignment',
     },
   ];
 
@@ -141,10 +141,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
         iconData = Icons.menu_book_rounded;
         break;
       case 'group':
-        iconData = Icons.groups_rounded;
+        iconData = Icons.forum_rounded;
         break;
-      case 'notifications':
-        iconData = Icons.notifications_active_rounded;
+      case 'assignment':
+        iconData = Icons.assignment_turned_in_rounded;
         break;
       default:
         iconData = Icons.circle;
