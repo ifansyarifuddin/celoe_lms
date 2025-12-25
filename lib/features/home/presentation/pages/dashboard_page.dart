@@ -2,7 +2,7 @@ import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/home/presentation/widgets/course_card.dart';
 import 'package:celoe_lms/features/profile/presentation/pages/profile_page.dart';
 import 'package:celoe_lms/features/profile/presentation/pages/grades_page.dart';
-import 'package:celoe_lms/features/home/presentation/pages/library_page.dart';
+import 'package:celoe_lms/features/home/presentation/pages/calendar_page.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -210,9 +210,8 @@ class DashboardPage extends StatelessWidget {
   Widget _buildMenuGrid(BuildContext context) {
     final List<Map<String, dynamic>> menuItems = [
       {'icon': Icons.menu_book, 'label': 'Kursus', 'color': Colors.blue, 'page': null}, // Handled by Tab
-      {'icon': Icons.calendar_month, 'label': 'Jadwal', 'color': Colors.orange, 'page': null},
+      {'icon': Icons.calendar_month, 'label': 'Jadwal', 'color': Colors.orange, 'page': const CalendarPage()},
       {'icon': Icons.grade, 'label': 'Nilai', 'color': Colors.green, 'page': const GradesPage()},
-      {'icon': Icons.library_books, 'label': 'Perpus', 'color': Colors.purple, 'page': const LibraryPage()},
     ];
 
     return GridView.builder(
@@ -221,7 +220,7 @@ class DashboardPage extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: menuItems.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
+        crossAxisCount: 3,
         childAspectRatio: 0.8,
         crossAxisSpacing: 16,
       ),

@@ -1,6 +1,7 @@
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/courses/presentation/pages/quiz_page.dart'; // Added
 import 'package:celoe_lms/features/courses/presentation/pages/assignment_page.dart'; // Added
+import 'package:celoe_lms/features/courses/presentation/pages/material_viewer_page.dart';
 import 'package:flutter/material.dart';
 
 class CourseDetailPage extends StatelessWidget {
@@ -179,6 +180,8 @@ class CourseDetailPage extends StatelessWidget {
              Navigator.push(context, MaterialPageRoute(builder: (context) => const QuizPage()));
           } else if (type == 'Tugas') {
              Navigator.push(context, MaterialPageRoute(builder: (context) => const AssignmentPage()));
+          } else {
+             Navigator.push(context, MaterialPageRoute(builder: (context) => MaterialViewerPage(title: title, type: type)));
           }
         },
         borderRadius: BorderRadius.circular(8),
