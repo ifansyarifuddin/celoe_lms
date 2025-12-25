@@ -65,7 +65,7 @@ class CourseListPage extends StatelessWidget {
               child: ListTile(
                 leading: Container(
                   width: 50, height: 50,
-                  decoration: BoxDecoration(color: Colors.orange.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+                  decoration: BoxDecoration(color: Colors.orange.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
                   child: const Icon(Icons.star, color: Colors.orange),
                 ),
                 title: Text('Digital Marketing ${index + 1}'),

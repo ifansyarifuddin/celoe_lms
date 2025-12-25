@@ -31,7 +31,7 @@ class CourseDetailPage extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     Container(
-                      color: AppColors.primary.withValues(alpha: 0.8), // Overlay
+                      color: AppColors.primary.withOpacity(0.8), // Overlay
                     )
                  ],
               ),
@@ -93,7 +93,7 @@ class CourseDetailPage extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
+              color: Colors.black.withOpacity(0.05),
               blurRadius: 10,
               offset: const Offset(0, -4),
             ),
@@ -122,7 +122,7 @@ class CourseDetailPage extends StatelessWidget {
         border: Border.all(color: isExam ? Colors.orange.shade200 : Colors.grey.shade200),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
+            color: Colors.black.withOpacity(0.02),
             blurRadius: 4,
             offset: const Offset(0, 2),
           )
@@ -187,7 +187,7 @@ class CourseDetailPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: iconColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(icon, size: 20, color: iconColor),

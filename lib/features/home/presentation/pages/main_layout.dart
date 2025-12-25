@@ -35,8 +35,8 @@ class _MainLayoutState extends State<MainLayout> {
         },
         backgroundColor: Colors.white,
         elevation: 10,
-        shadowColor: Colors.black.withValues(alpha: 0.1),
-        indicatorColor: AppColors.secondary.withValues(alpha: 0.2),
+        shadowColor: Colors.black.withOpacity(0.1),
+        indicatorColor: AppColors.secondary.withOpacity(0.2),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),

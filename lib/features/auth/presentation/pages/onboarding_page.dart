@@ -64,7 +64,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   decoration: BoxDecoration(
                     color: _currentPage == index
                         ? AppColors.primary
-                        : AppColors.grey.withValues(alpha: 0.3),
+                        : AppColors.grey.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
@@ -158,7 +158,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           Container(
             padding: const EdgeInsets.all(32),
             decoration: BoxDecoration(
-              color: AppColors.secondary.withValues(alpha: 0.2),
+              color: AppColors.secondary.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
             child: Icon(iconData, size: 100, color: AppColors.primary),

@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
              image: AssetImage('assets/images/logo.png'), // Placeholder for islamic pattern
              fit: BoxFit.cover,
              colorFilter: ColorFilter.mode(
-               Colors.white.withValues(alpha: 0.95), 
+               Colors.white.withOpacity(0.95), 
                BlendMode.lighten
              ),
           ),
