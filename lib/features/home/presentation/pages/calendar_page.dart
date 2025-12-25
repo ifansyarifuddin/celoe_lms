@@ -8,7 +8,7 @@ class CalendarPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Jadwal Akademik'),
+        title: const Text('Jadwal Kelas Kursus'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -17,18 +17,18 @@ class CalendarPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
           _buildDaySection("Senin, 23 Des 2024", [
-             _buildClassItem("08:00 - 10:00", "Pemrograman Mobile", "Ruang A301", "Dr. Rofi"),
-             _buildClassItem("13:00 - 15:00", "Jaringan Komputer", "Lab Jarkom", "Budi Santoso"),
+             _buildClassItem("19:00 - 21:00", "Flutter Masterclass", "Zoom Meeting", "Live Mentoring"),
+             _buildClassItem("13:00 - 15:00", "UI/UX Bootcamp", "Discord", "Design Review"),
           ]),
           const SizedBox(height: 16),
           _buildDaySection("Selasa, 24 Des 2024", [
-             _buildClassItem("10:00 - 12:00", "Basis Data", "Ruang B202", "Siti Aminah"),
+             _buildClassItem("10:00 - 12:00", "Digital Marketing", "Google Meet", "Q&A Session"),
           ]),
           const SizedBox(height: 16),
           _buildDaySection("Rabu, 25 Des 2024", [
              const Center(child: Padding(
                padding: EdgeInsets.all(16.0),
-               child: Text("Tidak ada jadwal kuliah", style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
+               child: Text("Tidak ada jadwal live session", style: TextStyle(color: Colors.grey, fontStyle: FontStyle.italic)),
              )),
           ]),
         ],
