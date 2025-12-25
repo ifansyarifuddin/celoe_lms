@@ -77,8 +77,8 @@ class CourseDetailPage extends StatelessWidget {
                        _buildMaterialItem(context, Icons.videocam_outlined, 'Stateless vs Stateful', 'Video'),
                        _buildMaterialItem(context, Icons.forum_outlined, 'Diskusi Widget', 'Forum'),
                     ]),
-                    _buildWeeklyItem(context, '8', 'Ujian Tengah Semester (UTS)', false, [
-                       _buildMaterialItem(context, Icons.timer_outlined, 'Soal UTS Pilihan Ganda', 'Kuis'),
+                    _buildWeeklyItem(context, '8', 'Evaluasi Akhir', false, [
+                       _buildMaterialItem(context, Icons.timer_outlined, 'Soal Kuis Pilihan Ganda', 'Kuis'),
                        _buildMaterialItem(context, Icons.upload_file, 'Project Submission', 'Tugas'),
                     ], isExam: true),
                   ],
