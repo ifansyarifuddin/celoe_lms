@@ -44,7 +44,7 @@ class _MainLayoutState extends State<MainLayout> {
           NavigationDestination(
             icon: Icon(Icons.menu_book_outlined),
             selectedIcon: Icon(Icons.menu_book, color: AppColors.primary),
-            label: 'Kelas Saya',
+            label: 'Kursus Saya',
           ),
           NavigationDestination(
             icon: Icon(Icons.notifications_outlined),
