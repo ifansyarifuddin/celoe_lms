@@ -1,6 +1,7 @@
 import 'package:celoe_lms/core/app_colors.dart';
-import 'package:celoe_lms/features/help/presentation/pages/help_page.dart';
+
 import 'package:celoe_lms/features/home/presentation/pages/main_layout.dart';
+import 'package:celoe_lms/features/auth/presentation/pages/sign_up_page.dart'; // Added
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -149,8 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      elevation: 4,
-                      shadowColor: AppColors.primary.withValues(alpha: 0.4),
+                      elevation: 0,
                     ),
                     child: const Text(
                       'Masuk',
@@ -162,6 +162,30 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
 
+                  const SizedBox(height: 16),
+
+                  // SSO Button
+                  OutlinedButton.icon(
+                    onPressed: () {
+                      // SSO Logic
+                    },
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      side: const BorderSide(color: AppColors.secondary),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    icon: const Icon(Icons.school_outlined, color: AppColors.primary),
+                    label: const Text(
+                      'Masuk dengan SSO',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 24),
 
                   // Footer
