@@ -79,10 +79,16 @@ class QuizPage extends StatelessWidget {
                 ),
               )),
             ),
-            ElevatedButton(
-              onPressed: (){}, 
+             ElevatedButton(
+              onPressed: () {
+                 ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Jawaban tersimpan')),
+                );
+                // Mock finishing quiz
+                Navigator.pop(context);
+              }, 
               style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white),
-              child: const Text('Selanjutnya')
+              child: const Text('Selesai')
             ),
           ],
         ),

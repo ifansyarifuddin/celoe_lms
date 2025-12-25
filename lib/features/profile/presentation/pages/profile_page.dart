@@ -1,6 +1,7 @@
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/auth/presentation/pages/login_page.dart';
 import 'package:celoe_lms/features/profile/presentation/pages/edit_profile_page.dart';
+import 'package:celoe_lms/features/help/presentation/pages/help_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -117,6 +118,10 @@ class ProfilePage extends StatelessWidget {
         onTap: () {
           if (title == 'Edit Profile') {
             Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfilePage()));
+          } else if (title == 'Help Center') {
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const HelpPage()));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$title tapped')));
           }
         },
       ),

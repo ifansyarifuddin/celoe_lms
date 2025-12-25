@@ -101,7 +101,9 @@ class CourseDetailPage extends StatelessWidget {
           ],
         ),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const MaterialViewerPage(title: 'Video Pengantar', type: 'Video')));
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
             foregroundColor: Colors.white,

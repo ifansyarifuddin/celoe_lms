@@ -89,7 +89,15 @@ class AssignmentPage extends StatelessWidget {
           boxShadow: [BoxShadow(blurRadius: 10, color: Colors.black12)],
         ),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Tugas berhasil dikumpulkan!'),
+                backgroundColor: Colors.green,
+              ),
+            );
+            Navigator.pop(context);
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
             padding: const EdgeInsets.symmetric(vertical: 16),

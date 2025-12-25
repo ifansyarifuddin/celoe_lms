@@ -1,5 +1,6 @@
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/home/presentation/widgets/course_card.dart';
+import 'package:celoe_lms/features/notifications/presentation/pages/notification_page.dart';
 import 'package:celoe_lms/features/profile/presentation/pages/profile_page.dart';
 import 'package:celoe_lms/features/profile/presentation/pages/grades_page.dart';
 import 'package:celoe_lms/features/home/presentation/pages/calendar_page.dart';
@@ -52,7 +53,9 @@ class DashboardPage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+               Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage()));
+            },
             icon: const Icon(Icons.notifications_outlined, color: Colors.white),
           ),
           const SizedBox(width: 8),
@@ -101,8 +104,10 @@ class DashboardPage extends StatelessWidget {
                             ),
                       ),
                       TextButton(
-                        onPressed: () {},
                         child: const Text('Lihat Semua', style: TextStyle(color: AppColors.primary)),
+                        onPressed: () {
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage()));
+                        },
                       ),
                     ],
                   ),
