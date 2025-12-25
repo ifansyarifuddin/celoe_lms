@@ -200,7 +200,6 @@ class DashboardPage extends StatelessWidget {
         ),
         trailing: const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
       ),
-      ),
     );
   }
 
