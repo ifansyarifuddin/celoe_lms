@@ -1,6 +1,8 @@
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/home/presentation/widgets/course_card.dart';
 import 'package:celoe_lms/features/profile/presentation/pages/profile_page.dart';
+import 'package:celoe_lms/features/profile/presentation/pages/grades_page.dart';
+import 'package:celoe_lms/features/home/presentation/pages/library_page.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -85,15 +87,9 @@ class DashboardPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildMenuIcon(context, 'Kursus', Icons.book_outlined, AppColors.primary),
-                      _buildMenuIcon(context, 'Jadwal', Icons.calendar_month_outlined, Colors.orange),
-                      _buildMenuIcon(context, 'Nilai', Icons.grade_outlined, Colors.blue),
-                      _buildMenuIcon(context, 'Perpus', Icons.local_library_outlined, Colors.purple),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
+                  // Quick Access Menu
+            _buildMenuGrid(context),
+            const SizedBox(height: 24),
 
                    // Recent Activity
                   Row(
@@ -212,6 +208,56 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
+  Widget _buildMenuGrid(BuildContext context) {
+    final List<Map<String, dynamic>> menuItems = [
+      {'icon': Icons.menu_book, 'label': 'Kursus', 'color': Colors.blue, 'page': null}, // Handled by Tab
+      {'icon': Icons.calendar_month, 'label': 'Jadwal', 'color': Colors.orange, 'page': null},
+      {'icon': Icons.grade, 'label': 'Nilai', 'color': Colors.green, 'page': const GradesPage()},
+      {'icon': Icons.library_books, 'label': 'Perpus', 'color': Colors.purple, 'page': const LibraryPage()},
+    ];
+
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: menuItems.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        childAspectRatio: 0.8,
+        crossAxisSpacing: 16,
+      ),
+      itemBuilder: (context, index) {
+        final item = menuItems[index];
+        return GestureDetector(
+          onTap: () {
+            if (item['page'] != null) {
+               Navigator.push(context, MaterialPageRoute(builder: (context) => item['page']));
+            }
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: (item['color'] as Color).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(item['icon'] as IconData, color: item['color'] as Color, size: 28),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                item['label'] as String,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   Widget _buildAcademicItem(String label, String value, IconData icon) {
     return Column(
       children: [
@@ -224,26 +270,6 @@ class DashboardPage extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(fontSize: 10, color: Colors.grey),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildMenuIcon(BuildContext context, String label, IconData icon, Color color) {
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Icon(icon, color: color, size: 28),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
         ),
       ],
     );
