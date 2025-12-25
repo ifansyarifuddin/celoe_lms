@@ -1,4 +1,4 @@
-import 'package:celoe_lms/core/app_colors.dart';
+
 import 'package:flutter/material.dart';
 
 class HelpPage extends StatelessWidget {
@@ -54,7 +54,7 @@ class HelpPage extends StatelessWidget {
                   color: Colors.green.withValues(alpha: 0.1),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.whatsapp, color: Colors.green),
+                child: const Icon(Icons.chat, color: Colors.green),
               ),
               title: const Text('WhatsApp Helpdesk'),
               subtitle: const Text('+62 811-1234-5678'),
