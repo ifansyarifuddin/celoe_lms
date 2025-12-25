@@ -1,5 +1,6 @@
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/home/presentation/widgets/course_card.dart';
+import 'package:celoe_lms/features/profile/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -15,10 +16,18 @@ class DashboardPage extends StatelessWidget {
         elevation: 0,
         title: Row(
           children: [
-            const CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'), // Placeholder
-              radius: 20,
+            GestureDetector(
+              onTap: () {
+                  Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const ProfilePage())
+                );
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'), // Placeholder
+                radius: 20,
+              ),
             ),
             const SizedBox(width: 12),
             Column(
