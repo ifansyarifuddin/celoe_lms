@@ -12,12 +12,67 @@ class _AssignmentPageState extends State<AssignmentPage> {
   String? _selectedFileName;
 
   void _pickFile() {
-    // Mock File Picking Logic
-    setState(() {
-      _selectedFileName = "Tugas_Analisis_UIUX_Ifan.pdf";
-    });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('File berhasil dipilih')),
+    showDialog(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: const Text('Pilih File dari Penyimpanan'),
+        children: [
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() {
+                _selectedFileName = "Tugas_Analisis_UIUX_Ifan.pdf";
+              });
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('File berhasil dipilih')),
+              );
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.picture_as_pdf, color: Colors.red),
+                const SizedBox(width: 12),
+                const Text("Tugas_Analisis_UIUX_Ifan.pdf"),
+              ],
+            ),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() {
+                _selectedFileName = "Laporan_Final_Project.docx";
+              });
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('File berhasil dipilih')),
+              );
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.description, color: Colors.blue),
+                const SizedBox(width: 12),
+                const Text("Laporan_Final_Project.docx"),
+              ],
+            ),
+          ),
+          SimpleDialogOption(
+            onPressed: () {
+              Navigator.pop(context);
+              setState(() {
+                _selectedFileName = "Screenshot_2024.png";
+              });
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('File berhasil dipilih')),
+              );
+            },
+            child: Row(
+              children: [
+                const Icon(Icons.image, color: Colors.green),
+                const SizedBox(width: 12),
+                const Text("Screenshot_2024.png"),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
