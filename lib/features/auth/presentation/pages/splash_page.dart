@@ -38,10 +38,15 @@ class _SplashPageState extends State<SplashPage> {
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.school,
-                size: 64,
-                color: AppColors.primary,
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 100,
+                height: 100,
+                errorBuilder: (context, error, stackTrace) => const Icon(
+                  Icons.school,
+                  size: 64,
+                  color: AppColors.primary,
+                ),
               ),
             ),
             const SizedBox(height: 24),

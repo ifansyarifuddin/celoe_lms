@@ -68,7 +68,7 @@ class CourseListPage extends StatelessWidget {
                 title: 'Mobile App Development ${index + 1}',
                 instructor: 'Dr. Rofi',
                 progress: isCompleted ? 1.0 : 0.45,
-                imageUrl: 'https://picsum.photos/300/200?random=${index + 10}',
+                imageUrl: 'assets/images/image copy ${index % 4 == 0 ? "" : (index % 4) + 1}.png',
               ),
             ),
           ),
@@ -94,8 +94,8 @@ class CourseDetailPage extends StatelessWidget {
             backgroundColor: AppColors.primary,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(courseTitle, style: const TextStyle(fontSize: 16)),
-              background: Image.network(
-                'https://picsum.photos/300/200?random=1',
+              background: Image.asset(
+                'assets/images/image.png',
                 fit: BoxFit.cover,
               ),
             ),

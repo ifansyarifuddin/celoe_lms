@@ -88,7 +88,7 @@ class DashboardPage extends StatelessWidget {
                       title: 'Mobile App Development',
                       instructor: 'Dr. Rofi',
                       progress: 0.75,
-                      imageUrl: 'https://picsum.photos/300/200?random=1',
+                      imageUrl: 'assets/images/image.png',
                     ),
                   );
                 },

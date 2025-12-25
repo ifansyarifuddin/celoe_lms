@@ -36,19 +36,21 @@ class CourseCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-            child: Image.network(
-              imageUrl,
-              height: 120,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                 return Container(
-                   height: 120,
-                   color: AppColors.secondary,
-                   child: const Icon(Icons.image_not_supported, color: Colors.grey),
-                 );
-              },
-            ),
+            child: imageUrl.startsWith('http') 
+              ? Image.network(
+                  imageUrl,
+                  height: 120,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => _buildErrorWidget(),
+                )
+              : Image.asset(
+                  imageUrl,
+                  height: 120,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => _buildErrorWidget(),
+                ),
           ),
           Padding(
             padding: const EdgeInsets.all(12),
@@ -93,6 +95,14 @@ class CourseCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+  Widget _buildErrorWidget() {
+    return Container(
+      height: 120,
+      width: double.infinity,
+      color: AppColors.secondary,
+      child: const Icon(Icons.image_not_supported, color: Colors.grey),
     );
   }
 }
