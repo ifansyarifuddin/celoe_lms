@@ -86,7 +86,6 @@ class DashboardPage extends StatelessWidget {
                         ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
                   // Quick Access Menu
             _buildMenuGrid(context),
             const SizedBox(height: 24),

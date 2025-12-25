@@ -1,27 +1,109 @@
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/home/presentation/widgets/course_card.dart';
-import 'package:celoe_lms/features/courses/presentation/pages/course_detail_page.dart'; // Added
+import 'package:celoe_lms/features/courses/presentation/pages/course_detail_page.dart';
 import 'package:flutter/material.dart';
 
-class CourseListPage extends StatelessWidget {
+class CourseListPage extends StatefulWidget {
   const CourseListPage({super.key});
 
   @override
+  State<CourseListPage> createState() => _CourseListPageState();
+}
+
+class _CourseListPageState extends State<CourseListPage> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  final TextEditingController _searchController = TextEditingController();
+  
+  // Mock Data for "Kursus" (Training Concept)
+  final List<Map<String, dynamic>> _allCourses = [
+    {
+      'code': 'BATCH-12',
+      'title': 'Flutter Masterclass 2024',
+      'instructor': 'Expert: Budi Santoso',
+      'progress': 0.45,
+      'status': 'Aktif',
+      'image': 'assets/images/logo.png',
+    },
+    {
+      'code': 'UIUX-05',
+      'title': 'UI/UX Design Bootcamp',
+      'instructor': 'Mentor: Rina A.',
+      'progress': 0.10,
+      'status': 'Aktif',
+      'image': 'assets/images/logo.png',
+    },
+    {
+      'code': 'PY-DATA',
+      'title': 'Python for Data Science',
+      'instructor': 'Dr. Andi',
+      'progress': 0.85,
+      'status': 'Aktif',
+      'image': 'assets/images/logo.png',
+    },
+    {
+      'code': 'MKT-101',
+      'title': 'Digital Marketing Certification',
+      'instructor': 'Google Certified Trainer',
+      'progress': 1.0,
+      'status': 'Selesai',
+      'image': 'assets/images/logo.png',
+    },
+    {
+      'code': 'WEB-FULL',
+      'title': 'Fullstack Web Laravel',
+      'instructor': 'LaraCasts Team',
+      'progress': 1.0,
+      'status': 'Selesai',
+      'image': 'assets/images/logo.png',
+    },
+  ];
+
+  List<Map<String, dynamic>> _filteredCourses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+    _filteredCourses = _allCourses;
+    _searchController.addListener(_onSearchChanged);
+    _tabController.addListener(_onTabChanged); // Listen to tab changes
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _onSearchChanged() {
+    setState(() {
+      _filterCourses();
+    });
+  }
+
+  void _onTabChanged() {
+    if (_tabController.indexIsChanging) return;
+    setState(() {
+      _filterCourses();
+    });
+  }
+
+  void _filterCourses() {
+    String query = _searchController.text.toLowerCase();
+    String currentStatus = _tabController.index == 0 ? 'Aktif' : 'Selesai';
+
+    _filteredCourses = _allCourses.where((course) {
+      bool matchesQuery = course['title'].toLowerCase().contains(query) ||
+                          course['instructor'].toLowerCase().contains(query);
+      bool matchesStatus = course['status'] == currentStatus;
+      
+      return matchesQuery && matchesStatus;
+    }).toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Mata Kuliah Saya'),
-          bottom: const TabBar(
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white70,
-            indicatorColor: AppColors.accent,
-            tabs: [
-              Tab(text: 'Aktif'),
-              Tab(text: 'Selesai'),
-              Tab(text: 'Pilihan'),
-            ],
     return Scaffold(
       appBar: AppBar(
         title: const Text('Kursus Saya'),
@@ -109,5 +191,3 @@ class CourseListPage extends StatelessWidget {
     );
   }
 }
-
-// End of file
