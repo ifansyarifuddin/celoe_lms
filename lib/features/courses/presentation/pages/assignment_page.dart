@@ -1,4 +1,5 @@
 import 'package:celoe_lms/core/app_colors.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class AssignmentPage extends StatefulWidget {
@@ -11,69 +12,22 @@ class AssignmentPage extends StatefulWidget {
 class _AssignmentPageState extends State<AssignmentPage> {
   String? _selectedFileName;
 
-  void _pickFile() {
-    showDialog(
-      context: context,
-      builder: (context) => SimpleDialog(
-        title: const Text('Pilih File dari Penyimpanan'),
-        children: [
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context);
-              setState(() {
-                _selectedFileName = "Tugas_Analisis_UIUX_Ifan.pdf";
-              });
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('File berhasil dipilih')),
-              );
-            },
-            child: Row(
-              children: [
-                const Icon(Icons.picture_as_pdf, color: Colors.red),
-                const SizedBox(width: 12),
-                const Text("Tugas_Analisis_UIUX_Ifan.pdf"),
-              ],
-            ),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context);
-              setState(() {
-                _selectedFileName = "Laporan_Final_Project.docx";
-              });
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('File berhasil dipilih')),
-              );
-            },
-            child: Row(
-              children: [
-                const Icon(Icons.description, color: Colors.blue),
-                const SizedBox(width: 12),
-                const Text("Laporan_Final_Project.docx"),
-              ],
-            ),
-          ),
-          SimpleDialogOption(
-            onPressed: () {
-              Navigator.pop(context);
-              setState(() {
-                _selectedFileName = "Screenshot_2024.png";
-              });
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('File berhasil dipilih')),
-              );
-            },
-            child: Row(
-              children: [
-                const Icon(Icons.image, color: Colors.green),
-                const SizedBox(width: 12),
-                const Text("Screenshot_2024.png"),
-              ],
-            ),
-          ),
-        ],
-      ),
+  void _pickFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'png'],
     );
+
+    if (result != null) {
+      setState(() {
+        _selectedFileName = result.files.single.name;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('File berhasil dipilih')),
+      );
+    } else {
+      // User canceled the picker
+    }
   }
 
   void _removeFile() {
