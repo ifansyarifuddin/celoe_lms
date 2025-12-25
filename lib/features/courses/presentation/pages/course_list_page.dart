@@ -80,31 +80,56 @@ class CourseListPage extends StatelessWidget {
        );
     }
     
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: GestureDetector(
-            onTap: () {
-               Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const CourseDetailPage(courseTitle: 'Mobile App Development'))
+    return Column(
+      children: [
+         // Search & Filter
+         Padding(
+           padding: const EdgeInsets.all(16.0),
+           child: TextField(
+             decoration: InputDecoration(
+               hintText: 'Cari mata kuliah...',
+               prefixIcon: const Icon(Icons.search, color: Colors.grey),
+               suffixIcon: Icon(Icons.tune, color: AppColors.primary),
+               border: OutlineInputBorder(
+                 borderRadius: BorderRadius.circular(12),
+                 borderSide: BorderSide.none
+               ),
+               filled: true,
+               fillColor: Colors.grey[100],
+             ),
+           ),
+         ),
+
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: GestureDetector(
+                  onTap: () {
+                     Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const CourseDetailPage(courseTitle: 'Mobile App Development'))
+                    );
+                  },
+                  child: SizedBox(
+                     height: 250, 
+                     child: CourseCard(
+                      code: 'IF${2000 + index}',
+                      title: 'Mobile App Development ${index + 1}',
+                      instructor: 'Dr. Rofi',
+                      progress: isCompleted ? 1.0 : 0.45,
+                      imageUrl: 'assets/images/logo.png', // Placeholder
+                    ),
+                  ),
+                ),
               );
             },
-            child: SizedBox(
-               height: 240, 
-               child: CourseCard(
-                title: 'Mobile App Development ${index + 1}',
-                instructor: 'Dr. Rofi',
-                progress: isCompleted ? 1.0 : 0.45,
-                imageUrl: 'assets/images/image copy ${index % 4 == 0 ? "" : (index % 4) + 1}.png',
-              ),
-            ),
           ),
-        );
-      },
+        ),
+      ],
     );
   }
 }

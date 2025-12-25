@@ -2,6 +2,7 @@ import 'package:celoe_lms/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CourseCard extends StatelessWidget {
+  final String code; // Added code
   final String title;
   final String instructor;
   final double progress;
@@ -9,6 +10,7 @@ class CourseCard extends StatelessWidget {
 
   const CourseCard({
     super.key,
+    required this.code,
     required this.title,
     required this.instructor,
     required this.progress,
@@ -57,6 +59,35 @@ class CourseCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        code,
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${(progress * 100).toInt()}%',
+                      style: const TextStyle(
+                        fontSize: 10,
+                         color: Colors.grey,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
                 Text(
                   title,
                   maxLines: 1,
@@ -77,18 +108,9 @@ class CourseCard extends StatelessWidget {
                 const SizedBox(height: 12),
                 LinearProgressIndicator(
                   value: progress,
-                  backgroundColor: AppColors.secondary,
+                  backgroundColor: Colors.grey[200],
                   color: AppColors.primary,
                   borderRadius: BorderRadius.circular(4),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  '${(progress * 100).toInt()}% Completed',
-                  style: const TextStyle(
-                    fontSize: 10,
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
               ],
             ),
