@@ -1,4 +1,6 @@
 import 'package:celoe_lms/core/app_colors.dart';
+import 'package:celoe_lms/features/courses/presentation/pages/quiz_page.dart'; // Added
+import 'package:celoe_lms/features/courses/presentation/pages/assignment_page.dart'; // Added
 import 'package:flutter/material.dart';
 
 class CourseDetailPage extends StatelessWidget {
@@ -58,25 +60,25 @@ class CourseDetailPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     _buildWeeklyItem(context, '1', 'Pengantar Mobile Development', true, [
-                       _buildMaterialItem(Icons.videocam_outlined, 'Video Pengantar', 'Video'),
-                       _buildMaterialItem(Icons.picture_as_pdf_outlined, 'Silabus Mata Kuliah.pdf', 'Dokumen'),
+                       _buildMaterialItem(context, Icons.videocam_outlined, 'Video Pengantar', 'Video'),
+                       _buildMaterialItem(context, Icons.picture_as_pdf_outlined, 'Silabus Mata Kuliah.pdf', 'Dokumen'),
                     ]),
                     _buildWeeklyItem(context, '2', 'Instalasi & Konfigurasi Environment', true, [
-                       _buildMaterialItem(Icons.videocam_outlined, 'Setup Flutter SDK', 'Video'),
-                       _buildMaterialItem(Icons.picture_as_pdf_outlined, 'Instalasi Guide.pdf', 'Dokumen'),
-                       _buildMaterialItem(Icons.quiz_outlined, 'Kuis Pra-Materi', 'Kuis'),
+                       _buildMaterialItem(context, Icons.videocam_outlined, 'Setup Flutter SDK', 'Video'),
+                       _buildMaterialItem(context, Icons.picture_as_pdf_outlined, 'Instalasi Guide.pdf', 'Dokumen'),
+                       _buildMaterialItem(context, Icons.quiz_outlined, 'Kuis Pra-Materi', 'Kuis'),
                     ]),
                     _buildWeeklyItem(context, '3', 'Dart Fundamentals', false, [
-                       _buildMaterialItem(Icons.videocam_outlined, 'Dasar Pemrograman Dart', 'Video'),
-                       _buildMaterialItem(Icons.code, 'Latihan Koding 1', 'Tugas'),
+                       _buildMaterialItem(context, Icons.videocam_outlined, 'Dasar Pemrograman Dart', 'Video'),
+                       _buildMaterialItem(context, Icons.code, 'Latihan Koding 1', 'Tugas'),
                     ]), 
                     _buildWeeklyItem(context, '4', 'Widget Basics', false, [
-                       _buildMaterialItem(Icons.videocam_outlined, 'Stateless vs Stateful', 'Video'),
-                       _buildMaterialItem(Icons.forum_outlined, 'Diskusi Widget', 'Forum'),
+                       _buildMaterialItem(context, Icons.videocam_outlined, 'Stateless vs Stateful', 'Video'),
+                       _buildMaterialItem(context, Icons.forum_outlined, 'Diskusi Widget', 'Forum'),
                     ]),
                     _buildWeeklyItem(context, '8', 'Ujian Tengah Semester (UTS)', false, [
-                       _buildMaterialItem(Icons.timer_outlined, 'Soal UTS Pilihan Ganda', 'Kuis'),
-                       _buildMaterialItem(Icons.upload_file, 'Project Submission', 'Tugas'),
+                       _buildMaterialItem(context, Icons.timer_outlined, 'Soal UTS Pilihan Ganda', 'Kuis'),
+                       _buildMaterialItem(context, Icons.upload_file, 'Project Submission', 'Tugas'),
                     ], isExam: true),
                   ],
                 ),
@@ -162,7 +164,7 @@ class CourseDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMaterialItem(IconData icon, String title, String type) {
+  Widget _buildMaterialItem(BuildContext context, IconData icon, String title, String type) {
     Color iconColor;
     if (type == 'Video') iconColor = Colors.red;
     else if (type == 'Dokumen') iconColor = Colors.blue;
@@ -171,34 +173,44 @@ class CourseDetailPage extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: iconColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
+      child: InkWell( // Added InkWell
+        onTap: () {
+          if (type == 'Kuis') {
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const QuizPage()));
+          } else if (type == 'Tugas') {
+             Navigator.push(context, MaterialPageRoute(builder: (context) => const AssignmentPage()));
+          }
+        },
+        borderRadius: BorderRadius.circular(8),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: iconColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, size: 20, color: iconColor),
             ),
-            child: Icon(icon, size: 20, color: iconColor),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                ),
-                Text(
-                  type,
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
-                ),
-              ],
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    type,
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
-        ],
+            const Icon(Icons.arrow_forward_ios, size: 14, color: Colors.grey),
+          ],
+        ),
       ),
     );
   }

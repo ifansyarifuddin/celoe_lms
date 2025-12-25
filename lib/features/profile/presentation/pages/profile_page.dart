@@ -39,14 +39,61 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
+            
+            // Academic Info (Moved from Dashboard)
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0,2)),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                   _buildStat('3.85', 'IPK'),
+                   _buildStat('124', 'SKS'),
+                   _buildStat('7', 'Semester'),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 32),
             _buildProfileItem(context, 'Edit Profile', Icons.edit_outlined),
-            _buildProfileItem(context, 'Settings', Icons.settings_outlined),
+            
+            // Settings Toggle
+            SwitchListTile(
+              title: const Text('Dark Mode', style: TextStyle(fontWeight: FontWeight.w500)),
+              secondary: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.purple.withValues(alpha: 0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.dark_mode_outlined, color: Colors.purple),
+              ),
+              value: false, 
+              onChanged: (val) {},
+            ),
+
+            _buildProfileItem(context, 'Notifications', Icons.notifications_none),
             _buildProfileItem(context, 'Help Center', Icons.help_outline),
             const SizedBox(height: 24),
             _buildLogoutButton(context),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildStat(String value, String label) {
+    return Column(
+      children: [
+        Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: AppColors.primary)),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+      ],
     );
   }
 
