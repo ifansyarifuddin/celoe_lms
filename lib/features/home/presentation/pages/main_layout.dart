@@ -49,6 +49,11 @@ class _MainLayoutState extends State<MainLayout> {
             label: 'Matkul',
           ),
           NavigationDestination(
+            icon: Icon(Icons.calendar_month_outlined),
+            selectedIcon: Icon(Icons.calendar_month, color: AppColors.primary),
+            label: 'Jadwal',
+          ),
+          NavigationDestination(
             icon: Icon(Icons.people_outlined),
             selectedIcon: Icon(Icons.people, color: AppColors.primary),
             label: 'Komunitas',
