@@ -6,6 +6,8 @@ import 'package:celoe_lms/features/profile/presentation/pages/grades_page.dart';
 import 'package:celoe_lms/features/home/presentation/pages/calendar_page.dart';
 import 'package:celoe_lms/features/home/presentation/pages/announcement_page.dart';
 import 'package:celoe_lms/features/courses/presentation/pages/course_list_page.dart';
+import 'package:celoe_lms/features/home/presentation/pages/assignment_list_page.dart';
+import 'package:celoe_lms/features/courses/presentation/pages/assignment_page.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -109,14 +111,13 @@ class DashboardPage extends StatelessWidget {
                       TextButton(
                         child: const Text('Lihat Semua', style: TextStyle(color: AppColors.primary)),
                         onPressed: () {
-                           // Navigate to Calendar or Assignments List
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => const CalendarPage()));
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => const AssignmentListPage()));
                         },
                       ),
                     ],
                   ),
-                  _buildAssignmentItem("Pemrograman Mobile", "Analisis UI/UX", "Besok, 23:59", true),
-                  _buildAssignmentItem("Basis Data", "ERD Diagram Project", "3 Hari lagi", false),
+                  _buildAssignmentItem(context, "Pemrograman Mobile", "Analisis UI/UX", "Besok, 23:59", true),
+                  _buildAssignmentItem(context, "Basis Data", "ERD Diagram Project", "3 Hari lagi", false),
                   
                   const SizedBox(height: 24),
 
@@ -183,7 +184,7 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildAssignmentItem(String course, String task, String deadline, bool isUrgent) {
+  Widget _buildAssignmentItem(BuildContext context, String course, String task, String deadline, bool isUrgent) {
     return Card(
       elevation: 0,
       color: Colors.white,
@@ -193,6 +194,9 @@ class DashboardPage extends StatelessWidget {
       ),
       margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const AssignmentPage()));
+        },
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(

@@ -8,7 +8,7 @@ class AnnouncementPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pengumuman Akademik'),
+        title: const Text('Pengumuman LMS'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -18,6 +18,17 @@ class AnnouncementPage extends StatelessWidget {
         itemCount: 3,
         separatorBuilder: (context, index) => const SizedBox(height: 16),
         itemBuilder: (context, index) {
+          final titles = [
+            'Maintenance Server LMS',
+            'Update Fitur Mobile App v2.0',
+            'Panduan Akses E-Library',
+          ];
+          final contents = [
+            'Akan dilakukan pemeliharaan server pada hari Sabtu, 28 Desember 2024 pukul 22.00 - 05.00 WIB. Selama periode ini, LMS tidak dapat diakses. Mohon simpan pekerjaan Anda sebelumnya.',
+            'Aplikasi CeLOE LMS kini hadir dengan tampilan baru! Nikmati fitur Dark Mode, Navigasi lebih cepat, dan akses materi offline. Silakan update melalui Play Store/App Store.',
+            'Mahasiswa kini dapat mengakses ribuan e-book internasional melalui menu Perpustakaan Digital. Gunakan akun SSO universitas untuk login.',
+          ];
+
           return Card(
             elevation: 2,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -37,16 +48,16 @@ class AnnouncementPage extends StatelessWidget {
                          child: const Icon(Icons.campaign, color: AppColors.primary),
                        ),
                        const SizedBox(width: 12),
-                       const Expanded(
+                       Expanded(
                          child: Column(
                            crossAxisAlignment: CrossAxisAlignment.start,
                            children: [
                              Text(
-                               'Pembayaran SPP Semester Genap',
-                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                               titles[index],
+                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                              ),
-                             Text(
-                               '20 Desember 2025',
+                             const Text(
+                               'Admin LMS - 5 Jam yang lalu',
                                style: TextStyle(color: Colors.grey, fontSize: 12),
                              ),
                            ],
@@ -56,20 +67,10 @@ class AnnouncementPage extends StatelessWidget {
                    ),
                    const SizedBox(height: 12),
                    Text(
-                     index == 0 
-                      ? 'Diberitahukan kepada seluruh mahasiswa bahwa batas akhir pembayaran SPP untuk Semester Genap Tahun Ajaran 2025/2026 adalah tanggal 20 Januari 2026. Mohon segera melakukan pembayaran sebelum tanggal tersebut untuk menghindari denda administrasi.'
-                      : 'Jadwal pengisian Kartu Rencana Studi (KRS) akan dimulai pada tanggal 25 Januari 2026. Pastikan seluruh kewajiban administrasi telah diselesaikan.',
+                     contents[index],
                      style: TextStyle(color: Colors.grey[800], height: 1.5),
                    ),
-                   const SizedBox(height: 16),
-                   SizedBox(
-                     width: double.infinity,
-                     child: OutlinedButton(
-                       onPressed: (){},
-                       style: OutlinedButton.styleFrom(foregroundColor: AppColors.primary),
-                       child: const Text('Unduh Lampiran'),
-                     ),
-                   )
+                 
                 ],
               ),
             ),
