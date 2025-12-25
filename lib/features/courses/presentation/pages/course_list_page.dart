@@ -8,31 +8,35 @@ class CourseListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('My Courses'),
+          title: const Text('Mata Kuliah Saya'),
           bottom: const TabBar(
-            labelColor: AppColors.primary,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: AppColors.primary,
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            indicatorColor: AppColors.accent,
             tabs: [
-              Tab(text: 'Ongoing'),
-              Tab(text: 'Completed'),
+              Tab(text: 'Aktif'),
+              Tab(text: 'Selesai'),
+              Tab(text: 'Pilihan'),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            _buildCourseList(),
-            _buildCourseList(isCompleted: true),
+            _buildCourseList(), // Aktif
+            _buildCourseList(isCompleted: true), // Selesai
+            _buildCourseList(isOptional: true), // Pilihan
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCourseList({bool isCompleted = false}) {
+  Widget _buildCourseList({bool isCompleted = false, bool isOptional = false}) {
+    // Only show empty state for 'Selesai' if logic demands, otherwise mock data
+    // For this prototype, I'll populate all with mock data or specific message
     if (isCompleted) {
        return Center(
         child: Column(
@@ -41,12 +45,39 @@ class CourseListPage extends StatelessWidget {
             Icon(Icons.history_edu, size: 64, color: Colors.grey[300]),
             const SizedBox(height: 16),
             Text(
-              'No completed courses yet',
+              'Belum ada mata kuliah selesai',
               style: TextStyle(color: Colors.grey[500]),
             ),
           ],
         ),
       );
+    }
+    
+    // Mock for Pilihan
+    if (isOptional) {
+       return ListView.builder(
+         padding: const EdgeInsets.all(16),
+         itemCount: 2,
+         itemBuilder: (context, index) {
+            return Card(
+              margin: const EdgeInsets.only(bottom: 16),
+              child: ListTile(
+                leading: Container(
+                  width: 50, height: 50,
+                  decoration: BoxDecoration(color: Colors.orange.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
+                  child: const Icon(Icons.star, color: Colors.orange),
+                ),
+                title: Text('Digital Marketing ${index + 1}'),
+                subtitle: const Text('2 SKS - Prof. Marketing'),
+                trailing: ElevatedButton(
+                  onPressed: (){}, 
+                  style: ElevatedButton.styleFrom(minimumSize: const Size(80, 36)),
+                  child: const Text('Ambil'),
+                ),
+              ),
+            );
+         }
+       );
     }
     
     return ListView.builder(
@@ -108,25 +139,28 @@ class CourseDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'About this course',
+                      'Rencana Pembelajaran',
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     const Text(
-                      'This course covers the fundamentals of mobile application development using Flutter. You will learn how to build beautiful UI, manage state, and interact with APIs.',
+                      'Mata kuliah ini membahas konsep dasar hingga lanjut pemrgoraman mobile dengan Flutter. Mahasiswa diharapkan mampu membuat aplikasi multi-platform.',
                       style: TextStyle(color: Colors.grey, height: 1.5),
                     ),
                     const SizedBox(height: 24),
                     const Text(
-                      'Modules',
+                      'Aktivitas Perkuliahan',
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 16),
-                    _buildModuleItem(context, '1', 'Introduction to Flutter', true),
-                    _buildModuleItem(context, '2', 'Dart Basics', true),
-                    _buildModuleItem(context, '3', 'Widget Tree & Layouts', false),
-                    _buildModuleItem(context, '4', 'State Management', false),
-                    _buildModuleItem(context, '5', 'API Integration', false),
+                    _buildMeetingItem(context, '1', 'Pengantar Mobile Dev', true),
+                    _buildMeetingItem(context, '2', 'Instalasi & Konfigurasi', true),
+                    _buildMeetingItem(context, '3', 'Dart Fundamentals', true),
+                    _buildMeetingItem(context, '4', 'Widget Basics', false),
+                    _buildMeetingItem(context, '5', 'Layouting', false),
+                    _buildMeetingItem(context, '6', 'State Management', false),
+                    _buildMeetingItem(context, '7', 'Navigation', false),
+                    _buildMeetingItem(context, '8', 'UTS (Ujian Tengah Semester)', false, isExam: true),
                   ],
                 ),
               ),
@@ -148,44 +182,75 @@ class CourseDetailPage extends StatelessWidget {
         ),
         child: ElevatedButton(
           onPressed: () {},
-          child: const Text('Continue Learning'),
+          child: const Text('Lanjut Belajar'),
         ),
       ),
     );
   }
 
-  Widget _buildModuleItem(BuildContext context, String number, String title, bool isCompleted) {
+  Widget _buildMeetingItem(BuildContext context, String number, String title, bool isCompleted, {bool isExam = false}) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isExam ? Colors.orange.withValues(alpha: 0.1) : Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        border: Border.all(color: isExam ? Colors.orange : Colors.grey.withValues(alpha: 0.1)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'Pertemuan $number',
+                  style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const SizedBox(width: 8),
+              if (isCompleted)
+                const Icon(Icons.check_circle, size: 16, color: Colors.green),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              _buildActionButton(Icons.videocam_outlined, 'Video'),
+              const SizedBox(width: 8),
+              _buildActionButton(Icons.picture_as_pdf_outlined, 'Modul'),
+              const SizedBox(width: 8),
+              _buildActionButton(Icons.forum_outlined, 'Diskusi'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton(IconData icon, String label) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: isCompleted ? Colors.green.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: isCompleted 
-                  ? const Icon(Icons.check, color: Colors.green)
-                  : Text(number, style: const TextStyle(fontWeight: FontWeight.bold)),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-          const Icon(Icons.play_circle_outline, color: AppColors.primary),
+          Icon(icon, size: 14, color: AppColors.primary),
+          const SizedBox(width: 4),
+          Text(label, style: const TextStyle(fontSize: 12, color: Colors.black87)),
         ],
       ),
     );

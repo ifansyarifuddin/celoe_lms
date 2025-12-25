@@ -2,6 +2,7 @@ import 'package:celoe_lms/core/app_colors.dart';
 import 'package:celoe_lms/features/home/presentation/pages/dashboard_page.dart';
 import 'package:celoe_lms/features/courses/presentation/pages/course_list_page.dart'; // Placeholder
 import 'package:celoe_lms/features/profile/presentation/pages/profile_page.dart'; // Placeholder
+import 'package:celoe_lms/features/community/presentation/pages/community_page.dart';
 import 'package:flutter/material.dart';
 
 class MainLayout extends StatefulWidget {
@@ -17,6 +18,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _pages = [
     const DashboardPage(),
     const CourseListPage(),
+    const CommunityPage(),
     const ProfilePage(),
   ];
 
@@ -32,23 +34,29 @@ class _MainLayoutState extends State<MainLayout> {
           });
         },
         backgroundColor: Colors.white,
-        elevation: 2,
-        indicatorColor: AppColors.primary.withValues(alpha: 0.1),
+        elevation: 10,
+        shadowColor: Colors.black.withValues(alpha: 0.1),
+        indicatorColor: AppColors.secondary.withValues(alpha: 0.2),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home, color: AppColors.primary),
-            label: 'Home',
+            label: 'Beranda',
           ),
           NavigationDestination(
-            icon: Icon(Icons.book_outlined),
-            selectedIcon: Icon(Icons.book, color: AppColors.primary),
-            label: 'Courses',
+            icon: Icon(Icons.menu_book_outlined),
+            selectedIcon: Icon(Icons.menu_book, color: AppColors.primary),
+            label: 'Matkul',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.people_outlined),
+            selectedIcon: Icon(Icons.people, color: AppColors.primary),
+            label: 'Komunitas',
           ),
           NavigationDestination(
             icon: Icon(Icons.person_outline),
             selectedIcon: Icon(Icons.person, color: AppColors.primary),
-            label: 'Profile',
+            label: 'Profil',
           ),
         ],
       ),
