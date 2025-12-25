@@ -1,8 +1,51 @@
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class AssignmentPage extends StatelessWidget {
+class AssignmentPage extends StatefulWidget {
   const AssignmentPage({super.key});
+
+  @override
+  State<AssignmentPage> createState() => _AssignmentPageState();
+}
+
+class _AssignmentPageState extends State<AssignmentPage> {
+  String? _selectedFileName;
+
+  void _pickFile() {
+    // Mock File Picking Logic
+    setState(() {
+      _selectedFileName = "Tugas_Analisis_UIUX_Ifan.pdf";
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('File berhasil dipilih')),
+    );
+  }
+
+  void _removeFile() {
+    setState(() {
+      _selectedFileName = null;
+    });
+  }
+
+  void _submitAssignment() {
+    if (_selectedFileName == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Harap upload file tugas terlebih dahulu!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Tugas berhasil dikumpulkan!'),
+        backgroundColor: Colors.green,
+      ),
+    );
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,19 +106,40 @@ class AssignmentPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey.shade300, style: BorderStyle.solid),
+                border: Border.all(
+                  color: _selectedFileName != null ? Colors.green : Colors.grey.shade300, 
+                  style: BorderStyle.solid
+                ),
                 borderRadius: BorderRadius.circular(12),
+                color: _selectedFileName != null ? Colors.green.shade50 : Colors.white,
               ),
               child: Column(
                 children: [
-                   const Icon(Icons.cloud_upload_outlined, size: 48, color: Colors.grey),
+                   Icon(
+                     _selectedFileName != null ? Icons.check_circle_outline : Icons.cloud_upload_outlined, 
+                     size: 48, 
+                     color: _selectedFileName != null ? Colors.green : Colors.grey
+                   ),
                    const SizedBox(height: 8),
-                   const Text('Tap untuk upload file', style: TextStyle(color: Colors.grey)),
+                   Text(
+                     _selectedFileName ?? 'Tap untuk upload file', 
+                     style: TextStyle(
+                       color: _selectedFileName != null ? Colors.green.shade800 : Colors.grey,
+                       fontWeight: _selectedFileName != null ? FontWeight.bold : FontWeight.normal,
+                     )
+                   ),
                    const SizedBox(height: 16),
-                   OutlinedButton(
-                     onPressed: (){},
-                     child: const Text('Pilih File'),
-                   )
+                   _selectedFileName != null 
+                    ? OutlinedButton.icon(
+                        onPressed: _removeFile,
+                        icon: const Icon(Icons.delete, color: Colors.red),
+                        label: const Text('Hapus File', style: TextStyle(color: Colors.red)),
+                        style: OutlinedButton.styleFrom(side: const BorderSide(color: Colors.red)),
+                      )
+                    : OutlinedButton(
+                        onPressed: _pickFile,
+                        child: const Text('Pilih File'),
+                      )
                 ],
               ),
             ),
@@ -89,17 +153,9 @@ class AssignmentPage extends StatelessWidget {
           boxShadow: [BoxShadow(blurRadius: 10, color: Colors.black12)],
         ),
         child: ElevatedButton(
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Tugas berhasil dikumpulkan!'),
-                backgroundColor: Colors.green,
-              ),
-            );
-            Navigator.pop(context);
-          },
+          onPressed: _submitAssignment,
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
+            backgroundColor: _selectedFileName != null ? AppColors.primary : Colors.grey,
             padding: const EdgeInsets.symmetric(vertical: 16),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
