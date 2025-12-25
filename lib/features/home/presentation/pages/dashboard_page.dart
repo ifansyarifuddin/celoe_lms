@@ -4,6 +4,8 @@ import 'package:celoe_lms/features/notifications/presentation/pages/notification
 import 'package:celoe_lms/features/profile/presentation/pages/profile_page.dart';
 import 'package:celoe_lms/features/profile/presentation/pages/grades_page.dart';
 import 'package:celoe_lms/features/home/presentation/pages/calendar_page.dart';
+import 'package:celoe_lms/features/home/presentation/pages/announcement_page.dart';
+import 'package:celoe_lms/features/courses/presentation/pages/course_list_page.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -90,15 +92,16 @@ class DashboardPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   // Quick Access Menu
+                  // Quick Access Menu
             _buildMenuGrid(context),
             const SizedBox(height: 24),
 
-                   // Recent Activity
+                   // Upcoming Assignments (formerly Recent Activity)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Aktivitas Terakhir',
+                        'Tugas Tenggat',
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -106,13 +109,14 @@ class DashboardPage extends StatelessWidget {
                       TextButton(
                         child: const Text('Lihat Semua', style: TextStyle(color: AppColors.primary)),
                         onPressed: () {
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationPage()));
+                           // Navigate to Calendar or Assignments List
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => const CalendarPage()));
                         },
                       ),
                     ],
                   ),
-                  _buildRecentActivityItem("Pemrograman Mobile", "Modul 3: Flutter Basics", 0.6),
-                  _buildRecentActivityItem("Basis Data", "Tugas 2: ERD Diagram", 0.9),
+                  _buildAssignmentItem("Pemrograman Mobile", "Analisis UI/UX", "Besok, 23:59", true),
+                  _buildAssignmentItem("Basis Data", "ERD Diagram Project", "3 Hari lagi", false),
                   
                   const SizedBox(height: 24),
 
@@ -124,7 +128,12 @@ class DashboardPage extends StatelessWidget {
                         ),
                   ),
                   const SizedBox(height: 12),
-                  _buildAnnouncementCard(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const AnnouncementPage()));
+                    },
+                    child: _buildAnnouncementCard(),
+                  ),
                 ],
               ),
             ),
@@ -174,7 +183,7 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRecentActivityItem(String course, String activity, double progress) {
+  Widget _buildAssignmentItem(String course, String task, String deadline, bool isUrgent) {
     return Card(
       elevation: 0,
       color: Colors.white,
@@ -187,23 +196,30 @@ class DashboardPage extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: isUrgent ? Colors.red.withOpacity(0.1) : Colors.blue.withOpacity(0.1),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Icon(Icons.play_circle_outline, color: AppColors.primary),
+          child: Icon(Icons.assignment_outlined, color: isUrgent ? Colors.red : Colors.blue),
         ),
         title: Text(course, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(activity, style: const TextStyle(fontSize: 12)),
-            const SizedBox(height: 6),
-            LinearProgressIndicator(
-              value: progress,
-              backgroundColor: Colors.grey.shade200,
-              color: AppColors.primary,
-              minHeight: 4,
-              borderRadius: BorderRadius.circular(2),
+            Text(task, style: const TextStyle(fontSize: 12)),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Icon(Icons.access_time, size: 12, color: isUrgent ? Colors.red : Colors.grey),
+                const SizedBox(width: 4),
+                Text(
+                  deadline, 
+                  style: TextStyle(
+                    fontSize: 11, 
+                    color: isUrgent ? Colors.red : Colors.grey,
+                    fontWeight: isUrgent ? FontWeight.bold : FontWeight.normal
+                  )
+                ),
+              ],
             )
           ],
         ),
@@ -214,7 +230,7 @@ class DashboardPage extends StatelessWidget {
 
   Widget _buildMenuGrid(BuildContext context) {
     final List<Map<String, dynamic>> menuItems = [
-      {'icon': Icons.menu_book, 'label': 'Kursus', 'color': Colors.blue, 'page': null}, // Handled by Tab
+      {'icon': Icons.menu_book, 'label': 'Kursus', 'color': Colors.blue, 'page': const CourseListPage()},
       {'icon': Icons.calendar_month, 'label': 'Jadwal', 'color': Colors.orange, 'page': const CalendarPage()},
       {'icon': Icons.grade, 'label': 'Nilai', 'color': Colors.green, 'page': const GradesPage()},
     ];
