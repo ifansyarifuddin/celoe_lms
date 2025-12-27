@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:celoe_lms/core/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -9,6 +11,18 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+  @override
+  File? _image;
+
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,21 +38,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             Stack(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 50,
                   backgroundColor: AppColors.secondary,
-                  backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'),
+                  backgroundImage: _image != null
+                      ? FileImage(_image!)
+                      : const AssetImage('assets/images/profile_pic.png') as ImageProvider,
                 ),
                 Positioned(
                   bottom: 0,
                   right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                      color: AppColors.primary,
-                      shape: BoxShape.circle,
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: AppColors.primary,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(Icons.camera_alt, color: Colors.white, size: 20),
                     ),
-                    child: const Icon(Icons.camera_alt, color: Colors.white, size: 20),
                   ),
                 ),
               ],
@@ -46,11 +65,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             const SizedBox(height: 32),
             _buildTextField('Nama Lengkap', 'Ifan Syarifuddin'),
             const SizedBox(height: 16),
-            _buildTextField('NIM / ID', '1202190001', enabled: false),
+            _buildTextField('NIM / ID', '2022020200097', enabled: false),
             const SizedBox(height: 16),
             _buildTextField('Email', 'ifan.syarifuddin21@gmail.com'),
             const SizedBox(height: 16),
-            _buildTextField('No. Telepon', '+62 812-3456-7890'),
+            _buildTextField('No. Telepon', '+6281807111602'),
             const SizedBox(height: 16),
             _buildTextField('Alamat', 'Jl. Telekomunikasi No. 1, Bandung', maxLines: 3),
             const SizedBox(height: 32),
