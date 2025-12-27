@@ -32,7 +32,7 @@ class DashboardPage extends StatelessWidget {
               },
               child: const CircleAvatar(
                 backgroundColor: Colors.white,
-                backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'), // Placeholder
+                backgroundImage: AssetImage('assets/images/profile_pic.png'),
                 radius: 20,
               ),
             ),
@@ -45,7 +45,7 @@ class DashboardPage extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: Colors.white70),
                 ),
                 Text(
-                  'Ahmad Ifan', // Mock Name
+                  'Ifan Syarifuddin', // Mock Name
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,

@@ -13,20 +13,33 @@ class _AssignmentPageState extends State<AssignmentPage> {
   String? _selectedFileName;
 
   void _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'png'],
-    );
-
-    if (result != null) {
-      setState(() {
-        _selectedFileName = result.files.single.name;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('File berhasil dipilih')),
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'png'],
       );
-    } else {
-      // User canceled the picker
+
+      if (!mounted) return;
+
+      if (result != null) {
+        setState(() {
+          _selectedFileName = result.files.single.name;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('File berhasil dipilih')),
+        );
+      } else {
+        // User canceled the picker
+      }
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Gagal memilih file. Mohon RESTART aplikasi. Error: $e'),
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 5),
+        ),
+      );
     }
   }
 

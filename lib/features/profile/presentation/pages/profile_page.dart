@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
             const CircleAvatar(
               radius: 50,
               backgroundColor: AppColors.secondary,
-              backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=12'),
+              backgroundImage: AssetImage('assets/images/profile_pic.png'),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -35,7 +35,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const Text(
-              'Student ID: 1202190001',
+              'Student ID: 2022020100097',
               style: TextStyle(
                 color: Colors.grey,
               ),

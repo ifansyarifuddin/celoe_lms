@@ -22,7 +22,7 @@ class _CourseListPageState extends State<CourseListPage> with SingleTickerProvid
       'instructor': 'Expert: Budi Santoso',
       'progress': 0.45,
       'status': 'Aktif',
-      'image': 'assets/images/logo.png',
+      'image': 'assets/images/1.png',
     },
     {
       'code': 'UIUX-05',
@@ -30,7 +30,7 @@ class _CourseListPageState extends State<CourseListPage> with SingleTickerProvid
       'instructor': 'Mentor: Rina A.',
       'progress': 0.10,
       'status': 'Aktif',
-      'image': 'assets/images/logo.png',
+      'image': 'assets/images/2.png',
     },
     {
       'code': 'PY-DATA',
@@ -38,7 +38,7 @@ class _CourseListPageState extends State<CourseListPage> with SingleTickerProvid
       'instructor': 'Dr. Andi',
       'progress': 0.85,
       'status': 'Aktif',
-      'image': 'assets/images/logo.png',
+      'image': 'assets/images/3.png',
     },
     {
       'code': 'MKT-101',
@@ -46,7 +46,7 @@ class _CourseListPageState extends State<CourseListPage> with SingleTickerProvid
       'instructor': 'Google Certified Trainer',
       'progress': 1.0,
       'status': 'Selesai',
-      'image': 'assets/images/logo.png',
+      'image': 'assets/images/4.png',
     },
     {
       'code': 'WEB-FULL',
@@ -54,7 +54,7 @@ class _CourseListPageState extends State<CourseListPage> with SingleTickerProvid
       'instructor': 'LaraCasts Team',
       'progress': 1.0,
       'status': 'Selesai',
-      'image': 'assets/images/logo.png',
+      'image': 'assets/images/5.png',
     },
   ];
 
